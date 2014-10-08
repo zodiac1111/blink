@@ -6,7 +6,10 @@ MMCU=atmega8 #单片机类型
 # ******************************************************
 .PHONY:all clean compile objcopy upload
 
-all:compile objcopy upload
+all:
+	make compile
+	make objcopy
+	make upload
 # 1. 编译
 compile:
 	$(CC) main.c -o main.elf -Wall -mmcu=$(MMCU) -Os
