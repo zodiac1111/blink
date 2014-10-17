@@ -11,15 +11,15 @@ all:
 	make objcopy
 	make upload
 # 1. 编译
-compile:
-	$(CC) main.c -o main.elf -Wall -mmcu=$(MMCU) -Os
+compile:main.elf
+	$(CC) main.c -o main.elf -Wall -mmcu=$(MMCU) -Os -Wall
 
 # 2. 复制使参数 复制代码段和数据段	
-objcopy:
+objcopy:compile
 	avr-objcopy -j .text -j .data -O ihex main.elf main.hex
 
 # 3. 上传参数 编程/下载器 usbasp 单片机：m8 下载文件main.hex
-upload:
+upload:objcopy
 	${Uploader} -p m8 -c usbasp -e -U flash:w:main.hex
 
 clean:
